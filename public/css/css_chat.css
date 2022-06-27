@@ -1,0 +1,124 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(241, 237, 232);
+}
+
+.cabecera_chat {
+    background-color: rgb(46, 154, 154);
+    color: whitesmoke;
+    display: flex;
+    height: 20%;
+    flex-direction: column;
+}
+.cabecera_chat h2 {
+    margin: .4rem;
+}
+.cabecera_chat .escribiendo {
+    align-self: center;
+}
+
+.caja_mensajes {
+    background-color: wheat;
+    display: flex;
+    height: 80%;
+    flex-direction: column;
+}
+
+.foto_ajena {
+    background-color: darkgray;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 100px;
+}
+.msj_ajeno {
+    align-self: flex-start;
+    background-color: slategray;
+    margin: 10px;
+    border-radius: 1rem;
+    text-align: center;
+    color: azure;
+    font-size: 16px;
+    padding: 1vh;
+}
+.foto_propia {
+    align-self: flex-end;
+    background-color: darkgray;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 100px;
+}
+
+.msj_propio_enviado{
+    align-self: flex-end;
+    background-color: rgb(40, 197, 40);
+    margin: 10px;
+    border-radius: 1rem;
+    text-align: center;
+    color: azure;
+    font-size: 16px;
+    padding: 1vh;
+}
+
+.entrada_chat {
+    align-self: center;
+    margin-bottom: 10px;
+    color: #181818;
+    background-color: rgba(123, 202, 192, 0.578);
+    font-size: 17px;
+}
+.salida_chat {
+    align-self: center;
+    margin-bottom: 10px;
+    background-color: rgb(159, 73, 73);
+    color: #e9e7e7;
+    font-size: 17px;
+}
+
+
+.caja_enviar_msj {
+    display: grid;
+    grid-template-columns: auto auto auto 2rem;
+    gap: 5px;
+    height: 10%;
+}
+
+.campo_mensaje {
+    grid-column: 1/4;
+    background-color: rgba(95, 158, 160, 0.8);
+    border-radius: 20px;
+    border-style: none;
+    color: #181818;
+    height: 1.5rem;
+    margin-bottom: .2rem;
+    padding: 1vh;
+}
+.campo_mensaje:hover {
+    background-color: rgba(110, 180, 182, 0.8);
+    transition: 0.2s;
+}
+
+#btn_enviar {
+    grid-column: 4/5;
+}
+#btn_enviar {
+    color: black;
+    text-decoration: none;
+}
+#btn_enviar:hover {
+    color: rgb(74, 74, 74);
+    transition: 0.1s;
+}
