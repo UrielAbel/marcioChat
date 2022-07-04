@@ -11,41 +11,24 @@
 </head>
 <body>
     <div class="container" id="container">
-
-        <header class="cabecera_chat" id="cabecera_chat">
-
-            <h2>
-                Nombre del chat
-            </h2>
-
-            <p class="escribiendo">
-                User esta escribiendo
-            </p>
+        <header id="cabecera_chat">
+            <h2>Nombre del chat</h2>
+            <p id="escribiendo"></p>
         </header>
 
-
-    <div class="caja_mensajes">
-
-        
-            
-
-        
-    </div>
-
-        <div class="caja_enviar_msj">
-        
-
-        <input type="text" class="campo_mensaje" id="campo_mensaje">
-        
-        <i class="fa-solid fa-arrow-right" id="btn_enviar"></i>
-
+        <div id="caja_mensajes">
         </div>
+
+        <div id="caja_enviar_msj">
+            <input type="text" id="campo_mensaje">
+            <i class="fa-solid fa-arrow-right" id="btn_enviar"></i>
+        </div>    
     </div>
 
     <!--
-    <input type="button" value="Agg Mensaje Ajeno" id="msj_btn_ajeno">
-    <input type="button" value="AGG Mensaje Salio del chat" id="btn_salida">
-    <input type="button" value="Agg Cartel Entro al chat" id="btn_entrada">
+    <button id="boton">GRABAR</button><button id="parar">PARAR</button>
+    <button id="poner">REPRODUCIR</button> <button id="enviar">ENVIAR</button>
+    <button id="ponerOtro">REPRODUCIR AJENO</button>
     -->
 
     <script src="/socket.io/socket.io.js"></script>

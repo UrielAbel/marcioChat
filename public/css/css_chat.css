@@ -17,25 +17,40 @@ body {
     background-color: rgb(241, 237, 232);
 }
 
-.cabecera_chat {
+#cabecera_chat {
     background-color: rgb(46, 154, 154);
     color: whitesmoke;
     display: flex;
-    height: 20%;
+    height: 10%;
     flex-direction: column;
 }
-.cabecera_chat h2 {
-    margin: .4rem;
-}
-.cabecera_chat .escribiendo {
+
+#escribiendo {
+    justify-self: end;
     align-self: center;
 }
 
-.caja_mensajes {
+#caja_mensajes {
+    overflow-y: auto;
     background-color: wheat;
-    display: flex;
     height: 80%;
-    flex-direction: column;
+    padding: 0 1vw;
+}
+
+.contMensajesA {
+    display: flex;
+    width: 100%;
+    height: 20%;
+    padding: 0 1vw;
+    align-items: center;
+}
+
+.contMensajesP {
+    display: flex;
+    justify-content: end;
+    width: 100%;
+    height: 20%;
+    align-items: center;
 }
 
 .foto_ajena {
@@ -44,33 +59,47 @@ body {
     height: 3rem;
     border-radius: 100px;
 }
+
 .msj_ajeno {
-    align-self: flex-start;
     background-color: slategray;
     margin: 10px;
     border-radius: 1rem;
     text-align: center;
+    max-width: auto;
+    display: flex;
+    flex-wrap: wrap;
     color: azure;
     font-size: 16px;
     padding: 1vh;
 }
 .foto_propia {
-    align-self: flex-end;
     background-color: darkgray;
     width: 3rem;
     height: 3rem;
+    order: 2;
+    justify-self: end;
     border-radius: 100px;
 }
 
 .msj_propio_enviado{
-    align-self: flex-end;
     background-color: rgb(40, 197, 40);
     margin: 10px;
+    order: 1;
+    justify-self: end;
     border-radius: 1rem;
     text-align: center;
     color: azure;
     font-size: 16px;
     padding: 1vh;
+}
+
+.contdupli {
+    padding: 0 3.5%;
+    height: fit-content;
+}
+
+.dupli {
+    transform: translateY(-100%);
 }
 
 .entrada_chat {
@@ -89,21 +118,21 @@ body {
 }
 
 
-.caja_enviar_msj {
-    display: grid;
-    grid-template-columns: auto auto auto 2rem;
-    gap: 5px;
+#caja_enviar_msj {
     height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.campo_mensaje {
-    grid-column: 1/4;
+#campo_mensaje {
+    width: 85%;
     background-color: rgba(95, 158, 160, 0.8);
     border-radius: 20px;
     border-style: none;
     color: #181818;
-    height: 1.5rem;
-    margin-bottom: .2rem;
+    height: 2rem;
+    transition: 1s;
     padding: 1vh;
 }
 .campo_mensaje:hover {
@@ -112,11 +141,11 @@ body {
 }
 
 #btn_enviar {
-    grid-column: 4/5;
-}
-#btn_enviar {
+    width: fit-content;
     color: black;
+    display: none;
     text-decoration: none;
+    margin-left: 1vw;
 }
 #btn_enviar:hover {
     color: rgb(74, 74, 74);
