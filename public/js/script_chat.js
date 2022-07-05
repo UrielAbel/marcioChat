@@ -1,56 +1,67 @@
-    let username = "hola"
-    let socket = io("")
-    let input = document.getElementById("campo_mensaje");
-    let btn_enviar = document.getElementById("btn_enviar");
-    let contMensajes = document.getElementById("caja_mensajes");
+let username = "carlos"
+let socket = io("")
+let input = document.getElementById("campo_mensaje");
+let btn_enviar = document.getElementById("btn_enviar");
+let contMensajes = document.getElementById("caja_mensajes");
 
-    socket.emit("newUser", username);
 
-    input.addEventListener("keyup", () => {
-        if (input.value != "") {
-            socket.emit("typing", username)
-            btn_enviar.style.display = "flex"
-            input.style.width = "75%"
-        } else {
-            btn_enviar.style.display = "none"
-            input.style.width = ""
-        }
-    })
+socket.emit("newUser", username);
 
-    btn_enviar.addEventListener("click", () => {
-        let msgE = {
-            text: input.value,
-            user: username
-        }
-        input.value = ""
+
+
+input.addEventListener("keyup", () => {
+    if (input.value != "") {
+        socket.emit("typing", username)
+        btn_enviar.style.display = "flex"
+        input.style.width = "75%"
+    } else {
         btn_enviar.style.display = "none"
         input.style.width = ""
-        let mgs = document.querySelectorAll(`[username]`)
-        if (mgs.length != 0) {
-            let name = mgs[mgs.length - 1].attributes.username.value
-            if (name == msgE.user) {
-                console.log("son iguales")
-                caja_mensajes.innerHTML += `<div class="contMensajesP msg contdupli"><div class='msj_propio_enviado dupli' username="${msgE.user}">${msgE.text}</div></div>`;
-            } else {
-                caja_mensajes.innerHTML += `<div class="contMensajesP"><div class='foto_propia'></div><div class='msj_propio_enviado' username="${msgE.user}"> ${msgE.text} </div></div>`
-            }
-            t = document.getElementsByClassName("msg")
-            let este = t[t.length - 1];
-            este.scrollIntoView({
-            behavior: 'smooth'
-            });
+    }
+})
+
+btn_enviar.addEventListener("click", () => {
+    let msgE = {
+        text: input.value,
+        user: username
+    }
+    input.value = ""
+    btn_enviar.style.display = "none"
+    input.style.width = "";
+    msgPropio(msgE)
+    socket.emit("mensaje", msgE)
+})
+
+socket.on("newUser", (data) => {
+    caja_mensajes.innerHTML += `<p class="entrada_chat"> ${data} ha entrado a este chat </p>`;
+})
+        
+socket.on("mensaje", (data) => {
+    document.getElementById("escribiendo").innerText = ""
+    msgAjeno(data)
+})
+
+socket.on("cargarChat", (data) => {
+    console.log(data)
+    for (var i = 0; i < data.length; i++) {
+        if (data[i].user == username) {
+            msgPropio(data[i])
         } else {
-            caja_mensajes.innerHTML += `<div class="contMensajesP"><div class='foto_propia'></div><div class='msj_propio_enviado' username="${msgE.user}"> ${msgE.text} </div></div>`;
+            msgAjeno(data[i])
         }
-        socket.emit("mensaje", msgE)
+    }
+    t = document.getElementsByClassName("msg")
+    let este = t[t.length - 1];
+    este.scrollIntoView({
+    behavior: 'smooth'
+});
+})
+
+    socket.on("typing", (data) => {
+        document.getElementById("escribiendo").innerText = `${data} está escribiendo`
     })
 
-    socket.on("newUser", (data) => {
-        caja_mensajes.innerHTML += `<p class="entrada_chat"> ${data} ha entrado a este chat </p>`;
-    })
-        
-    socket.on("mensaje", (data) => {
-        document.getElementById("escribiendo").innerText = ""
+    function msgAjeno(data) {
         let mgs = document.querySelectorAll(`[username]`)
         if (mgs.length != 0) {
             let name = mgs[mgs.length - 1].attributes.username.value
@@ -63,23 +74,25 @@
                 console.log("no son iguales")
                 caja_mensajes.innerHTML += `<div class="contMensajesA msg"><div class='foto_ajena'></div><div class='msj_ajeno' username="${data.user}">${data.text}</div></div>`;
             }
-            t = document.getElementsByClassName("msg")
-            let este = t[t.length - 1];
-            este.scrollIntoView({
-            behavior: 'smooth'
-        });
         } else {
             caja_mensajes.innerHTML += `<div class="contMensajesA msg"><div class='foto_ajena'></div><div class='msj_ajeno' username="${data.user}">${data.text}</div></div>`;
         }
-    })
+    }
 
-    socket.on("disconnection", (data) => {
-        caja_mensajes.append(`<p class='entrada_chat msg'> ${data} ha entrado a este chat</p>`);
-    })
-
-    socket.on("typing", (data) => {
-        document.getElementById("escribiendo").innerText = `${data} está escribiendo`
-    })
+    function msgPropio(msgE) {
+        let mgs = document.querySelectorAll(`[username]`)
+        if (mgs.length != 0) {
+            let name = mgs[mgs.length - 1].attributes.username.value
+            if (name == msgE.user) {
+                console.log("son iguales")
+                caja_mensajes.innerHTML += `<div class="contMensajesP msg contdupli"><div class='msj_propio_enviado dupli' username="${msgE.user}">${msgE.text}</div></div>`;
+            } else {
+                caja_mensajes.innerHTML += `<div class="contMensajesP"><div class='foto_propia'></div><div class='msj_propio_enviado' username="${msgE.user}"> ${msgE.text} </div></div>`
+            }
+        } else {
+            caja_mensajes.innerHTML += `<div class="contMensajesP"><div class='foto_propia'></div><div class='msj_propio_enviado' username="${msgE.user}"> ${msgE.text} </div></div>`;
+        }
+    }
 
     /*
 document.getElementById("boton").addEventListener("click", () => {

@@ -5,6 +5,7 @@ const io = require('socket.io')(http);
 const port = process.env.PORT || 3000;
 const path = require("path")
 const mongoose = require("mongoose")
+const bcrypt = require("bcrypt")
 
 app.use(express.static('public'));
 
@@ -13,19 +14,28 @@ app.get('/', (req, res) => {
 });
 
 mongoose.connect("mongodb+srv://m001-student:m001-mongodb-basics@cluster0.pphfd3f.mongodb.net/testing?retryWrites=true&w=majority")
-  .then(() => {
-    console.log("se conectó con la base de datos")
-    // Crear Schema de mensaje
-  })
-  .catch((err)=> {console.log("falló", err)})
 
-let schema = new mongoose.Schema({
+let schMen = new mongoose.Schema({
   text: "string",
   user: "string"
 });
-let mensaje = mongoose.model("tests", schema);
 
-io.on('connection', (socket) => { 
+let schUser = new mongoose.Schema({
+  user: "string",
+  pass: "string"
+})
+
+let modUser = mongoose.model("users", schUser)
+
+let mensaje = mongoose.model("tests", schMen);
+
+io.on('connection', (socket) => {
+  mensaje.find()
+    .then((data) => {
+      io.to(socket.id).emit("cargarChat", data)    
+    })
+  
+
     socket.on("mensaje", (data) => {
       socket.broadcast.emit("mensaje", data)
       let docu = new mensaje({text: data.text, user: data.user});
@@ -40,13 +50,23 @@ io.on('connection', (socket) => {
   
     socket.on("newUser", (data) => {
        socket.broadcast.emit("newUser", data)
+       console.log("nueva conexión");
     })
-  
-    socket.on("audio", (data) => {
-      console.log("llegó audio")
-      console.log(data)
-      socket.emit("audio", data)
+
+    socket.on("logIn", (datos) => {
+      modUser.find({user: "tato"})
+        .then((data) => {console.log(data); console.log("funcó")})
     })
+
+    socket.on("singUp", (data) => {
+      modUser.create({ user: "tato", pass: "admin" }, function (err, docUser) {
+        if (err){console.log(err)};
+        docUser.save( function(error) {
+          if (err){console.log(error)}
+        })
+      });
+    });
+    
 });
 
 io.on("disconnection", (socket) => {
@@ -92,4 +112,17 @@ mongoose.connect("mongodb+srv://m001-student:m001-mongodb-basics@cluster0.pphfd3
 
     })
     .catch((err)=> {console.log(err)}) 
+*/
+
+/*
+
+//compare
+bcrypt.compare(myPlaintextPassword, hash, function(err, result) {
+    // result == true
+});
+
+//encript
+bcrypt.hash(myPlaintextPassword, saltRounds, function(err, hash) {
+    // Store hash in your password DB.
+});
 */

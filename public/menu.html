@@ -1,0 +1,44 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/menu.css">
+    <title>menu</title>
+</head>
+<body>
+    <div>
+        <div class="container">
+            <form id="formLog" class="inputCont"> 
+                <label for="userInputLog">Username</label>
+                <input type="text" name="userInputLog" id="userInputLog" required>
+                <label for="passInputLog">Password</label>
+                <input type="password" name="passInputLog" id="passInputLog" required>
+                <button type="submit">Log In</button>  
+            </form>
+
+            <div class="another">
+                <p id="actionLog">P_ACCION</p>
+                <button id="btnChat">Go To Chat</button>
+            </div>
+        </div>
+        <div class="container">
+            <form id="formSing" class="inputCont">
+                <label for="userInputSing">Username</label>
+                <input type="text" name="userInputSing" id="userInputSing" required>
+                <label for="passInputSing">Password</label>
+                <input type="password" name="passInputSing" id="passInputSing" required>
+                <label for="wordInputSing">Word</label>
+                <input type="text" name="wordInputSing" id="wordInputSing" required>
+                <button type="submit">Sing Up</button>
+            </form>
+            <div class="another">
+                <p id="actionSing">P_ACCION</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="./socket.io/socket.io.js"></script>
+    <script src="./js/menu.js"></script>
+</body>
+</html>

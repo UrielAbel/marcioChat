@@ -1,0 +1,31 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    width: 40%;
+    height: 30%;
+    border: solid 1px black;
+    display: flex;
+}
+
+.inputCont {
+    width: 40%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.another {
+    width: 60%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+#btnChat {
+    display: none;
+}
